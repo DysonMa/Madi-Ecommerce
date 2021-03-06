@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block title %}迷你電商{% endblock %}
+{% block content %}
+<div class="container" align=center>
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading" align=center>
+                    <h3>歡迎光臨迷你電商</h3>
+                    <!-- Facebook驗證 -->
+                    {% if username %}
+                        歡迎: {{ username }}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" align='left' style='padding:12px' >
+        <div class="btn btn-primary">
+            目前是第{{ products.number }}頁
+        </div>
+        {% if products.has_previous %}
+        <button class='btn btn-primary'>
+            <a href="?p={{products.previous_page_number}}" style='color:white'>上一頁</a>
+        </button>
+        {% endif %}
+        {% if products.has_next %}
+        <button class='btn btn-primary'>
+            <a href="?p={{products.next_page_number}}"  style='color:white'>下一頁</a>
+        </button>
+        {% endif %}
+    </div>
+    <!-- load accout -->
+    {% for product in products %}
+    {% cycle '<div class="row">' "" "" "" %}
+        <div class='col-xs-3 col-sm-3 col-md-3'>
+            <div class="thumbnail">
+                <img src="{{ product.image.url }}" alt="">
+                <div class="caption">
+                    <h4>{{ product.name }}</h4>
+                    <p>NT$ {{ product.price}}</p>
+                    <p>庫存: {{ product.stock }}</p>
+                    <p>{{ product.description }}</p>
+                    <button class='btn btn-primary'>加入購物車</button>
+                </div>
+            </div>
+        </div>
+    {% cycle '' '' '' '' '</div>'%}
+    {% empty %}
+    <div class='row'>
+        <div class="col-sm-12" align=center>
+            <h3>此分類目前沒有任何商品</h3>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
