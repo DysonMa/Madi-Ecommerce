@@ -9,3 +9,5 @@ class ProductAdmin(admin.ModelAdmin):
 admin.site.register(models.Product, ProductAdmin)
 admin.site.register(models.Category)
 admin.site.register(models.User)
+admin.site.register(models.Order)
+admin.site.register(models.OrderItem)

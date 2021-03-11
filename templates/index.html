@@ -9,7 +9,7 @@
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading" align=center>
-                    <h3>歡迎光臨迷你電商</h3>
+                    <h3>歡迎光臨迷你電商<br>{{category.name | default:"全部產品"}}</h3>
                     <!-- Facebook驗證 -->
                     {% if username %}
                         歡迎: {{ username }}
@@ -41,11 +41,15 @@
             <div class="thumbnail">
                 <img src="{{ product.image.url }}" alt="">
                 <div class="caption">
-                    <h4>{{ product.name }}</h4>
+                    <h4><a href="{% url 'product-url' product.id %}">{{ product.name }}</a></h4>
                     <p>NT$ {{ product.price}}</p>
                     <p>庫存: {{ product.stock }}</p>
-                    <p>{{ product.description }}</p>
-                    <button class='btn btn-primary'>加入購物車</button>
+                    <!-- <p>{{ product.description }}</p> -->
+                    {% if user.is_authenticated %}
+                    <button class='btn btn-info' {{product.stock | yesno}}>
+                        <a href="{% url 'additem-url' product.id 1 %}">加入購物車</a> 
+                    </button>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -58,4 +62,10 @@
     </div>
     {% endfor %}
 </div>
+{% if cart.count > 0 %}
+    <em>目前購物車中共有 {{cart.count}} 項產品</em>
+{% else %}
+<p>此購物車為空</p>
+{% endif %}
 {% endblock %}
+

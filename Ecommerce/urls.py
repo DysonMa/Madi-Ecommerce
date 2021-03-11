@@ -19,12 +19,19 @@ from myshop import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.index),
+    path('', views.index),  # TODO -> find ans
+    path('<int:cat_id>/', views.index),
     path('login/', views.login),
     path('logout/', views.logout),
     path('userinfo/', views.userinfo),
     path('accounts/', include('registration.backends.default.urls')),
     path('filer/', include('filer.urls')),
+    path('product/<int:product_id>/', views.product, name='product-url'),
+    path('cart/', views.cart), # 購物車
+    path('additem/<int:product_id>/<int:quantity>/', views.add_to_cart, name='additem-url'), # 購物車
+    path('removeitem/<int:product_id>/', views.remove_from_cart, name='removeitem-url'), # 購物車
+    path('order/', views.order),
+    path('myorders/', views.my_orders),
 ]
 
 # django-filer

@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'easy_thumbnails',
     'filer',
     'mptt',
+    'cart',
 ]
 
 # django-filer
@@ -177,3 +178,6 @@ STATICFILES_DIRS = [
 # django-filer
 MEDIA_URL = '/media/'
 MEDIA_ROOT = '/var/www/Ecommerce/media'
+
+# session
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True

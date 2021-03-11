@@ -32,3 +32,29 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Order(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    full_name = models.CharField(max_length=20)
+    address = models.CharField(max_length=200)
+    phone = models.CharField(max_length=15)
+    created_at = models.DateTimeField(auto_now_add=True)  # auto_now_add: 建立時的時間，往後修改model不會更新
+    updated_at = models.DateTimeField(auto_now=True)  # auto_now: 每次save都更新為當前的時間
+    # datetimefield: 日期+時間, datefield: 日期
+    paid = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ('-created_at',)
+
+    def __str__(self):
+        return f'Order:{self.id}'
+
+class OrderItem(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='items')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    price = models.DecimalField(max_digits=8, decimal_places=2)
+    quantity = models.PositiveIntegerField(default=1)
+
+    def __str__(self):
+        return str(self.id)
