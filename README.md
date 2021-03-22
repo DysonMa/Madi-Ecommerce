@@ -4,7 +4,6 @@
 
 * [English README.md(英文 README.md)](https://github.com/DysonMa/Madi-Ecommerce/blob/master/README.md)
 * 這是一個用 Django, Bootstrap, MySQL, Docker 架設並部署在 Heroku 的購物網站。
-* 帳號:madi | 密碼:840914
 
 ![home](/static/githubImages/4.PNG)
 
