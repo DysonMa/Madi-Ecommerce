@@ -1,61 +1,91 @@
 # Madi-Ecommerce
 
-* [繁體中文 README.md(Traditional Chinese README.md)](https://github.com/DysonMa/Madi-Ecommerce/blob/master/README-zh-TW.md)
-* Using SQLite, asyncio, pandas, pyquery, requests to build a crawler and deploy on Heroku with connected to Line ChatBot.
+## 關於
 
-## About
+* [English README.md(英文 README.md)](https://github.com/DysonMa/Madi-Ecommerce/blob/master/README.md)
+* 這是一個用 Django, Bootstrap, MySQL, Docker 架設並部署在 Heroku 的購物網站。
+* 帳號:madi | 密碼:840914
 
-104, 1111 and cakeresume are the most frequently used job search websites in Taiwan.
+![home](/static/githubImages/4.PNG)
 
-![104-demo](https://github.com/DysonMa/JobSearch/blob/master/static/images/104.PNG)
+## 功能
+* 響應式(RWD)網站設計
+* 圖片輪播(Carousel)
+* 使用者驗證(django auth)
+* 第三方登入(Google、GitHub)
+* 將商品加入購物車並提交訂單(session)
+* 發送訂單確認的電子郵件給顧客(SMTP + Gmail)
+* Admin管理後臺可以上傳產品圖片(django-filer)
 
-![1111-demo](https://github.com/DysonMa/JobSearch/blob/master/static/images/1111.PNG)
+## 使用技術與工具
+* 前端:
+    - HTML5
+    - CSS3
+    - jQuery
+    - [Bootstrap(4.5.2)](https://getbootstrap.com/)
+* 後端:
+    - [Django(3.1.7)](https://www.djangoproject.com/)
+        - session
+        - form
+        - email(SMTP+Gmail)
+        - django-allauth  
+* 資料庫:
+    - [MySQL](https://www.mysql.com/)
+    - [SQLite(地端測試)](https://www.sqlite.org/index.html)
+* 部署:
+    - [Docker](https://www.docker.com/)
 
-![cakeresume-demo](https://github.com/DysonMa/JobSearch/blob/master/static/images/cakeresume.PNG)
+## 演示步驟與展示圖片
 
-Nowadays, job search information are huge and change rapidly. It is always effective and necessary to quickly collect job search information through crawlers. Besides, storing the crawled data into the database can be search at any time.
+* 尚未有帳號密碼，所以導至登入頁面
+![login](/static/githubImages/14.PNG)
 
-In this project, different from the previous linear execution method, I use an asynchronous method to crawl the job websites. This application will increase the crawler speed and shorten the waiting time.
+* 第三方登入(Google、GitHub)
+![login](/static/githubImages/15.PNG)
+![login](/static/githubImages/16.PNG)
 
-### Built With
-* python
-* SQLite
-* asyncio
-* Pandas
-* pyquery
-* requests
+* 註冊帳號，成功後會寄發註冊成功的電子郵件
+![register](/static/githubImages/17.PNG)
+![register](/static/githubImages/18.PNG)
 
-## Getting Started
-### Installation
-Clone the repo
+* 登入後，進入首頁
+![home](/static/githubImages/4.PNG)
+
+* 使用者個人資料
+![userinfo](/static/githubImages/7.PNG)
+
+* 分類檢視
+![category](/static/githubImages/5.PNG)
+![category](/static/githubImages/6.PNG)
+
+* 選購商品，加入購物車
+![cart](/static/githubImages/8.PNG)
+![cart](/static/githubImages/9.PNG)
+![cart](/static/githubImages/10.PNG)
+
+* 按下"我要訂購"，並輸入訂購資訊
+![order](/static/githubImages/11.PNG)
+![order](/static/githubImages/12.PNG)
+
+* 發送電子郵件通知訂單給顧客
+![email](/static/githubImages/13.PNG)
+
+* 想增加商品圖片，可以在Admin管理後臺上傳圖片
+![upload](/static/githubImages/1.PNG)
+![upload](/static/githubImages/2.PNG)
+
+## 如何開始
+### 安裝
+遠端下載repo
 ```
-git clone https://github.com/DysonMa/JobSearch.git
+git clone https://github.com/DysonMa/Madi-Ecommerce.git
 ```
-## Usage
-1. Define the required parameters. `web` can also choose `104`, `1111` and `cakeresume`. `end_page` means the number of page for crawling.
-```
-web = '104'
-keyword = 'python'
-end_page = 3
-sqlite_path = './job.db'
-```
-2. Execute crawling
-```
-start_crawling()
-```
-歷經6.618713617324829秒<br>
-存檔成功
+## 使用
 
-3. Show DataFrame
-```
-df
-```
 
-![demo](https://github.com/DysonMa/JobSearch/blob/master/static/images/demo.PNG)
-
-## License
+## 憑證
 Distributed under the MIT License.
 
-## Contact
+## 聯絡方式
 Dyson Ma - madihsiang@gmail.com
-Project Link: https://github.com/DysonMa/JobSearch
+Project Link: https://github.com/DysonMa/Madi-Ecommerce
