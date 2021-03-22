@@ -1,62 +1,65 @@
 {% extends 'base.html' %}
 {% block title %}檢視購物車{% endblock %}
 {% block content %}
-<div class="container">
+<div class="container" style='padding-top:5em'>
     {% for message in messages %}
         <div class='alert alert-{{message.tags}}'>{{message}}</div>
     {% endfor %}
-    <div class="row">
-        <div class="col-md-12">
-            <div class="panel panel-default">
-                <div class="panel-heading" align=center>
-                    <h3>歡迎光臨迷你電商</h3>
-                </div>
-            </div>
-        </div>
-    </div>
+    
     <div class="row">
         <div class="col-sm-12">
-            <div class="panel panel-info">
-                <div class="panel panel-heading">
-                    <h4>我的購物車</h4>
+            <div>
+                <div style='padding:50px; text-align: center;'>
+                    <h2 style='font-weight: bold;'>我的購物車</h2>
                 </div>
-                <div class="panel panel-body">
+                <div>
                     {% for item in cart %}
                     {% if forloop.first %}
-                    <table border=1>
-                        <tr>
-                            <td width=300 align=center>產品名稱</td>
-                            <td width=100 align=center>單價</td>
-                            <td width=100 align=center>數量</td>
-                            <td width=100 align=center>小計</td>
-                            <td width=100 align=center>刪除</td>
-                        </tr>
-                    {% endif %}
-                    <div class="listgroup">
-                        <div class="listgroup-item">
+                    <table class='table' style='background-color: whitesmoke;'>
+                        <thead class='thead-dark'>
                             <tr>
-                                <td>{{item.product.name}}</td>
-                                <td align=right>{{item.product.price}}</td>
-                                <td align=center>{{item.quantity}}</td>
-                                <td align=right>{{item.total_price}}</td>
-                                <td align=center>
-                                    <a href="{% url 'removeitem-url' item.product.id %}">
-                                        <span class='glyphicon glyphicon-trash'></span>
-                                    </a>
-                                </td>
+                                <th scope="col" width=200 style='text-align: center;'>產品名稱</th>
+                                <th scope="col" width=100 style='text-align: center;'>單價</th>
+                                <th scope="col" width=100 style='text-align: center;'>數量</th>
+                                <th scope="col" width=100 style='text-align: center;'>小計</th>
+                                <th scope="col" width=100 style='text-align: center;'>刪除</th>
                             </tr>
-                        </div>
-                    </div>
+                        </thead>
+                        
+                    {% endif %}
+                    <tbody>
+                        <tr>
+                            <td style='text-align: center;'>{{item.product.name}}</td>
+                            <td style='text-align: center;'>{{item.product.price|floatformat}}</td>
+                            <td style='text-align: center;'>{{item.quantity}}</td>
+                            <td style='text-align: center;'>{{item.total_price|floatformat}}</td>
+                            <td style='text-align: center;'>
+                                <a href="{% url 'removeitem-url' item.product.id %}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                        <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                    </svg>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
                     {% if forloop.last %}
                     </table>
-                    <button class='btn btn-warning'><a href="/order">我要訂購</a></button>
+                    <div style='padding:12px 12px 12px 0;'>
+                        <h3 style='font-weight: bold;'>總計: {{cart.summary|floatformat}} 元</h3>
+                    </div>
+                    <div style='padding:12px 12px 12px 0'>
+                        <button class='btn btn-info'><a href="/order" style="color:whitesmoke">我要訂購</a></button>
+                    </div>
                     {% endif %}
                     {% empty %}
-                    <em>購物車是空的</em>
+                    <div style='padding:12px 12px 12px 0; text-align: center;'>
+                        <h3 style='font-weight: bold;'>目前還沒有任何購物商品，快去商店逛逛吧!</h3>
+                        <div style='padding:12px'>
+                            <h3><a href="/" style='font-weight: bold; color:lightblue'>點我前往</a></h3>
+                        </div>
+                    </div>
                     {% endfor %}
-                </div>
-                <div class='panel panel-footer'>
-                    總計: {{cart.summary}} 元
                 </div>
             </div>
         </div>

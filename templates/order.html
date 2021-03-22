@@ -1,70 +1,64 @@
 {% extends 'base.html' %}
 {% block title %}檢視購物車{% endblock %}
 {% block content %}
-<div class="container">
+<div class="container" style='padding-top:3em'>
     {% for message in messages %}
         <div class='alert alert-{{message.tags}}'>{{message}}</div>
     {% endfor %}
     <div class="row">
         <div class="col-md-12">
-            <div class="panel panel-default">
-                <div class="panel-heading" align=center>
-                    <h3>歡迎光臨迷你電商</h3>
-                </div>
+            <div style='padding:50px; text-align: center;'>
+                <h2 style='font-weight: bold;'>我的購物車</h2>
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-12">
             <div class="panel panel-info">
-                <div class="panel panel-heading">
-                    <h4>我的購物車</h4>
-                </div>
-                <div class="panel panel-body">
+                <div>
                     {% for item in cart %}
                     {% if forloop.first %}
-                    <table border=1>
-                        <tr>
-                            <td width=300 align=center>產品名稱</td>
-                            <td width=100 align=center>單價</td>
-                            <td width=100 align=center>數量</td>
-                            <td width=100 align=center>小計</td>
-                            <td width=100 align=center>刪除</td>
-                        </tr>
-                    {% endif %}
-                    <div class="listgroup">
-                        <div class="listgroup-item">
+                    <table class='table' style='background-color: whitesmoke;'>
+                        <thead class='thead-dark'>
                             <tr>
-                                <td>{{item.product.name}}</td>
-                                <td align=right>{{item.product.price}}</td>
-                                <td align=center>{{item.quantity}}</td>
-                                <td align=right>{{item.total_price}}</td>
-                                <td align=center>
-                                    <a href="{% url 'removeitem-url' item.product.id %}">
-                                        <span class='glyphicon glyphicon-trash'></span>
-                                    </a>
-                                </td>
+                                <th scope="col" width=200 style='text-align: center;'>產品名稱</th>
+                                <th scope="col" width=100 style='text-align: center;'>單價</th>
+                                <th scope="col" width=100 style='text-align: center;'>數量</th>
+                                <th scope="col" width=100 style='text-align: center;'>小計</th>
                             </tr>
-                        </div>
-                    </div>
+                        </thead>
+                        
+                    {% endif %}
+                    <tbody>
+                        <tr>
+                            <td style='text-align: center;'>{{item.product.name}}</td>
+                            <td style='text-align: center;'>{{item.product.price|floatformat}}</td>
+                            <td style='text-align: center;'>{{item.quantity}}</td>
+                            <td style='text-align: center;'>{{item.total_price|floatformat}}</td>
+                        </tr>
+                    </tbody>
                     {% if forloop.last %}
                     </table>
-                    <button class='btn btn-warning'><a href="/cart">回購物車</a></button>
-                    <button class='btn btn-warning'><a href="/">回首頁</a></button>
+                    <div style='padding:12px 12px 12px 0;'>
+                        <h3 style='font-weight: bold;'>總計: {{cart.summary|floatformat}} 元</h3>
+                    </div>
                     {% endif %}
                     {% empty %}
-                        <em>購物車是空的</em>
+                    <div style='padding:12px 12px 12px 0; text-align: center;'>
+                        <h3 style='font-weight: bold;'>目前還沒有任何購物商品，快去商店逛逛吧!  <a href="/" style='font-weight: bold; color:lightblue'>點我前往</a></h3>
+                    </div>
                     {% endfor %}
                 </div>
-                
-                <div class='panel panel-footer'>
-                    總計: {{cart.summary}} 元
+            </div>
+                <div style='padding:12px 12px 12px 0'>
                     <form action="." method='POST'>
                         {% csrf_token %}
                         <table>
                             {{form.as_table}}
                         </table>
-                        <input type="submit" value='下訂單'>
+                        <div style='padding:12px 12px 12px 0'>
+                            <button class='btn btn-danger' type="submit">下訂單</button>
+                        </div>
                     </form>
                 </div>
             </div>

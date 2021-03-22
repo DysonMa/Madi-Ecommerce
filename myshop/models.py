@@ -2,17 +2,26 @@ from django.db import models
 
 # django-filer
 from filer.fields.image import FilerImageField
+from django.contrib.auth.models import User
 
 
 # 自訂User，但其實可以直接用auth提供的即可
-class User(models.Model):
-    username = models.CharField(max_length=20, null=False)
-    email = models.EmailField()
-    password = models.CharField(max_length=20, null=False)
-    enabled = models.BooleanField(default=False)  # 是否為會員
+# class User(models.Model):
+#     username = models.CharField(max_length=20, null=False)
+#     email = models.EmailField()
+#     password = models.CharField(max_length=20, null=False)
+#     enabled = models.BooleanField(default=False)  # 是否為會員
+
+#     def __str__(self):
+#         return self.name
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE) # 一個user對應到一個profile
+    male = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.name
+        return self.user.username
+
 
 class Category(models.Model):
     name = models.CharField(max_length=20)
@@ -58,3 +67,4 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return str(self.id)
+

@@ -2,4 +2,6 @@ myvenv
 .vscode
 虛擬環境建立.txt
 Django指令.txt
-db.sqilte3
+db.sqlite3
+Google-credentials.json
+GitHub-credentials.json

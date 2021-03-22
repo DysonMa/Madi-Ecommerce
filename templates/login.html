@@ -1,31 +1,36 @@
 {% extends 'base.html' %}
+{% load socialaccount %}
 {% block title %}登入{% endblock %}
 {% block content %}
-<div class="container">
+<div class="container" style='padding-top:5em'>
     {% for message in messages %}
         <div class="alert alert-{{ message.tags }}">{{ message }}</div>
     {% endfor %}
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default">
-                <div class="panel-heading" align=center>
-                    <h3>登入迷你電商</h3>
+                <div style='padding:50px; text-align: center;'>
+                    <h2 style='font-weight: bold;'>登入 Madi's Shop</h2>
                     {% if user.is_authenticated %}
                     <!-- TODO: 補上Facebook驗證 -->
                     {% else %}
-                        <p>歡迎使用Facebook註冊/登入您的帳號已購買本商城商品</p>
+                        <p><h5>歡迎使用 Google/GitHub 登入您的帳號已購買本商城商品</h5></p>
                     {% endif %}
                 </div>
             </div>
         </div>
     </div>
-    <form action="." method='POST'>
+    <form action="." method='POST' align=center style='margin:auto; background-color:lightsteelblue; width:50%; padding:2em; border-radius: 2em;'>
         <!-- 避免跨站攻擊 -->
         {% csrf_token %}
         <table>
-            {{ login_form.as_table }}
+            {{ login_form.as_p }}
         </table>
-        <input type="submit" value='登入'><br>
+        <div>
+            <input class="btn btn-info" type="submit" value="登入" />
+            <a class="btn btn-danger" href="{% provider_login_url 'google' method='oauth2' %}">Google登入</a>
+            <a class="btn btn-dark" href="{% provider_login_url 'github' method='oauth2' %}">GitHub登入</a>
+        </div>
     </form>
 </div>
 {% endblock %}

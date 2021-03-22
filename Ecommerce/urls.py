@@ -24,7 +24,9 @@ urlpatterns = [
     path('login/', views.login),
     path('logout/', views.logout),
     path('userinfo/', views.userinfo),
-    path('accounts/', include('registration.backends.default.urls')),
+    # path('register/', include('registration.backends.default.urls')),
+    path('register/', views.sign_up, name='Register'),
+    path('accounts/', include('allauth.urls')), # django-allauth網址
     path('filer/', include('filer.urls')),
     path('product/<int:product_id>/', views.product, name='product-url'),
     path('cart/', views.cart), # 購物車

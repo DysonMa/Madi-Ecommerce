@@ -1,25 +1,30 @@
 {% extends 'base.html' %}
 {% block title %}註冊帳號{% endblock%}
 {% block content %}
-<div class="container">
+<div class="container" style='padding-top:3em'>
     {% for message in messages %}
         <div class="alert alert-{{ message.tags }}">{{ message }}</div>
     {% endfor %}
     <div class="row">
         <div class="col-md-12">
-            <div class="panel panel-default">
-                <div class="panel-heading" align=center>
-                    <h3>註冊帳號</h3>
-                </div>
+            <div style='padding:50px; text-align: center;'>
+                <h2 style='font-weight: bold;'>註冊帳號</h2>
             </div>
         </div>
     </div>
-    <form action="." method='POST'>
-        {% csrf_token %}
-        <table>
-            {{ form.as_table }}
-        </table>
-        <input type="submit" value='註冊'><br>
-    </form>
+    <div class="row">
+        <div class="col-12" style='margin:auto'>
+            <form action="." method='POST' style='margin:auto; background-color:lightsteelblue; width:50%; padding:2em; border-radius: 2em;'>
+                {% csrf_token %}
+                <table>
+                    {{ form.as_p }}
+                </table>
+                <div align=center>
+                    <button class='btn btn-info' type="submit">註冊</button>
+                </div>
+            </form>
+        </div>
+        
+    </div>
 </div>
 {% endblock %}

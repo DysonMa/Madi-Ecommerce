@@ -9,6 +9,12 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required 
+from allauth.account.decorators import verified_email_required
+
+# SMTP
+from django.core.mail import EmailMessage
+from django.conf import settings
+from django.template.loader import render_to_string
 
 # cart
 from cart.cart import Cart
@@ -77,9 +83,12 @@ def userinfo(request):
     else:
         return redirect('/login')
     try:
-        userinfo = User.objects.get(username=username)
+        user = User.objects.get(username=username)
+        userinfo = models.Profile.objects.get(user=user)
     except:
         pass
+
+    all_categories = models.Category.objects.all()
 
     return render(request, 'userinfo.html', locals()) 
 
@@ -94,8 +103,6 @@ def product(request, product_id):
     except:
         product = None
     
-    # template = get_template('product.html')
-    # request_context = 
     return render(request, 'product.html', locals())
 
 def add_to_cart(request, product_id, quantity):
@@ -120,34 +127,47 @@ def cart(request):
 
 # @verified_email_required
 def order(request):
+    if request.user.is_authenticated:
+        username = request.user.username
     all_categories = models.Category.objects.all()
     cart = Cart(request)
     if request.method=='POST':
         user = User.objects.get(username=request.user.username)
         new_order = models.Order(user=user)
-
         form = forms.OrderForm(request.POST, instance=new_order)
         if form.is_valid():
             order = form.save()  # 把訂單Order儲存在資料庫中並取得實例放在order這個變數中
-            email_messages = '您的購物內容如下: \n'
+            email_messages = '購物內容如下: \n'
             for item in cart:
                 models.OrderItem.objects.create(order=order,
                                                 product=item.product,
                                                 price=item.product.price,
                                                 quantity=item.quantity)
-            email_messages = f'{email_messages}\n{item.product}, {item.product.price}, {item.quantity}'
+                email_messages = f'{email_messages}\n{item.product}, 價格: {round(item.product.price, 0)}, 數量: {item.quantity}個'
             cart.clear()  # 清除購物車內容
-            messages.add_message(request, messages.INFO, '訂單已儲存，我們會盡快處理。')
-            # 訂購者
-            send_mail('感謝您的訂購',
-                        email_messages,
-                        '迷你電商',
-                        [request.user.email],)
-            # 管理員
-            send_mail('有人訂購產品囉',
-                        email_messages,
-                        '迷你電商',
-                        ['madihsiang@gmail.com'],)
+
+            # 電子郵件內容樣板
+            email_template = render_to_string(
+                'order_success_email.html',
+                {'email_messages': email_messages}
+            )
+            email_seller = EmailMessage(
+                '訂購產品通知',  # 電子郵件標題
+                email_template,  # 電子郵件內容
+                settings.EMAIL_HOST_USER,  # 寄件者
+                ['madihsiang@gmail.com']  # 收件者
+            )
+            email_customer = EmailMessage(
+                '感謝您的訂購',  # 電子郵件標題
+                email_template,  # 電子郵件內容
+                settings.EMAIL_HOST_USER,  # 寄件者
+                [request.user.email]  # 收件者
+            )
+            email_seller.fail_silently = False
+            email_customer.fail_silently = False
+            email_seller.send()
+            email_customer.send()
+
             return redirect('/myorders/')
     else:
         form = forms.OrderForm()
@@ -156,8 +176,35 @@ def order(request):
 
 @login_required(login_url='/login/')
 def my_orders(request):
+    if request.user.is_authenticated:
+        username = request.user.username
     all_categories = models.Category.objects.all()
     orders = models.Order.objects.filter(user=request.user)
 
     return render(request, 'myorders.html', locals())
 
+# 註冊
+def sign_up(request):
+    form = forms.RegisterForm()
+    if request.method == "POST":
+        form = forms.RegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            # 電子郵件內容樣板
+            email_template = render_to_string(
+                'registration/signup_success_email.html',
+                {'username': request.user.username}
+            )
+            email = EmailMessage(
+                'Madi-Ecommerce註冊成功通知信',  # 電子郵件標題
+                email_template,  # 電子郵件內容
+                settings.EMAIL_HOST_USER,  # 寄件者
+                ['madihsiang@gmail.com']  # 收件者
+            )
+            email.fail_silently = False
+            email.send()
+            return redirect('/login')
+    context = {
+        'form': form
+    }
+    return render(request, 'registration/registration_form.html', context)

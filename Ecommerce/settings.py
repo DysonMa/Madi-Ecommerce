@@ -38,7 +38,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # 我的應用程式
     'myshop',
+    # allauth
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    # Google validation
+    'allauth.socialaccount.providers.google',
+    # github validation
+    'allauth.socialaccount.providers.github',
     'anymail',
     'registration',
     'easy_thumbnails',
@@ -46,6 +56,16 @@ INSTALLED_APPS = [
     'mptt',
     'cart',
 ]
+
+SITE_ID = 1
+LOGIN_REDIRECT_URL = '/'
+EMAIL_BACKEND = 'django_mailgun.MailgunBackend'
+MAILGUN_ACCESS_KEY = ''
+MAILGUN_SERVER_NAME = ''
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
 
 # django-filer
 THUMBNAIL_HIGH_RESOLUTION = True
@@ -82,14 +102,23 @@ FILER_STORAGES = {
 
 
 # anymail
-ANYMAIL = {
-    # (exact settings here depend on your ESP...)
-    "MAILGUN_API_KEY": "<your Mailgun key>",
-    "MAILGUN_SENDER_DOMAIN": 'mg.example.com',  # your Mailgun domain, if needed
-}
-EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"  # or sendgrid.EmailBackend, or...
-DEFAULT_FROM_EMAIL = "you@example.com"  # if you don't already have this in settings
-SERVER_EMAIL = "your-server@example.com"  # ditto (default from-email for Django errors)
+# ANYMAIL = {
+#     # (exact settings here depend on your ESP...)
+#     "MAILGUN_API_KEY": "<your Mailgun key>",
+#     "MAILGUN_SENDER_DOMAIN": 'mg.example.com',  # your Mailgun domain, if needed
+# }
+# EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"  # or sendgrid.EmailBackend, or...
+# DEFAULT_FROM_EMAIL = "@example.com"  # if you don't already have this in settings
+# SERVER_EMAIL = "your-server@example.com"  # ditto (default from-email for Django errors)
+
+# SMTP configuration
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  #SMTP伺服器
+EMAIL_PORT = 587  #TLS通訊埠號
+EMAIL_USE_TLS = True  #開啟TLS(傳輸層安全性)
+EMAIL_HOST_USER = 'madihsiang@gmail.com'  #寄件者電子郵件
+EMAIL_HOST_PASSWORD = 'fdrewuscvjvytqww'  #Gmail應用程式的密碼
+
 
 
 MIDDLEWARE = [
@@ -128,8 +157,16 @@ WSGI_APPLICATION = 'Ecommerce.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',  # 改成MySQL
+        # 'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': 'md-ecommerce',
+        'USER': 'root',
+        'PASSWORD': 'madihsiangPIG129131160',
+        'HOST': 'localhost',
+        'PORT': '',
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        },
     }
 }
 
