@@ -20,7 +20,7 @@
 * 前端:
     - HTML5
     - CSS3
-    - jQuery
+    - jquery
     - [Bootstrap(4.5.2)](https://getbootstrap.com/)
 * 後端:
     - [Django(3.1.7)](https://www.djangoproject.com/)
@@ -41,6 +41,7 @@
 
 * 第三方登入(Google、GitHub)
 <img src='/static/githubImages/15.PNG' width='500px'>
+<img src='/static/githubImages/16.PNG' width='500px'>
 
 * 註冊帳號，成功後會寄發註冊成功的電子郵件
 <img src='/static/githubImages/17.PNG' width='750px'>
