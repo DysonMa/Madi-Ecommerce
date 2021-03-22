@@ -11,7 +11,12 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+import configparser
 import os
+
+# configuration 
+config = configparser.RawConfigParser()
+config.read('config.ini')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,16 +26,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'ino3at+43@*rp%u@v*#-m_0&n#xqi-6@=ea_6-7l=-5$#x+tg4'
+SECRET_KEY = config['Django']['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
-ACCOUNT_ACTIVATION_DAYS = 7
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -49,7 +52,6 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     # github validation
     'allauth.socialaccount.providers.github',
-    'anymail',
     'registration',
     'easy_thumbnails',
     'filer',
@@ -60,8 +62,6 @@ INSTALLED_APPS = [
 SITE_ID = 1
 LOGIN_REDIRECT_URL = '/'
 EMAIL_BACKEND = 'django_mailgun.MailgunBackend'
-MAILGUN_ACCESS_KEY = ''
-MAILGUN_SERVER_NAME = ''
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
@@ -117,8 +117,7 @@ EMAIL_HOST = 'smtp.gmail.com'  #SMTP伺服器
 EMAIL_PORT = 587  #TLS通訊埠號
 EMAIL_USE_TLS = True  #開啟TLS(傳輸層安全性)
 EMAIL_HOST_USER = 'madihsiang@gmail.com'  #寄件者電子郵件
-EMAIL_HOST_PASSWORD = 'fdrewuscvjvytqww'  #Gmail應用程式的密碼
-
+EMAIL_HOST_PASSWORD = config['Gmail']['client_secret'] #Gmail應用程式的密碼
 
 
 MIDDLEWARE = [
@@ -161,7 +160,7 @@ DATABASES = {
         # 'NAME': BASE_DIR / 'db.sqlite3',
         'NAME': 'md-ecommerce',
         'USER': 'root',
-        'PASSWORD': 'madihsiangPIG129131160',
+        'PASSWORD': config['MySQL']['client_secret'],
         'HOST': 'localhost',
         'PORT': '',
         'OPTIONS': {
