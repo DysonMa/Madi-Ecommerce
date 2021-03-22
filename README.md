@@ -41,7 +41,7 @@
 <img src='/static/githubImages/14.PNG' width='750px'>
 
 * 第三方登入(Google、GitHub)
-<img src='/static/githubImages/15.PNG' width='750px'>
+<img src='/static/githubImages/15.PNG' width='500px'>
 
 * 註冊帳號，成功後會寄發註冊成功的電子郵件
 <img src='/static/githubImages/17.PNG' width='750px'>
@@ -53,7 +53,7 @@
 * 使用者個人資料
 <img src='/static/githubImages/7.PNG' width='750px'>
 
-* 分類檢視
+* 分類檢視，例如選擇"書籍"
 <img src='/static/githubImages/5.PNG' width='750px'>
 <img src='/static/githubImages/6.PNG' width='750px'>
 
@@ -62,14 +62,14 @@
 <img src='/static/githubImages/9.PNG' width='750px'>
 <img src='/static/githubImages/10.PNG' width='750px'>
 
-* 按下"我要訂購"，並輸入訂購資訊
+* 按下"我要訂購"，並輸入訂購資訊，再按下"下訂單"
 <img src='/static/githubImages/11.PNG' width='750px'>
 <img src='/static/githubImages/12.PNG' width='750px'>
 
 * 發送電子郵件通知訂單給顧客
 <img src='/static/githubImages/13.PNG' width='750px'>
 
-* 想增加商品圖片，可以在Admin管理後臺上傳圖片
+* 若想增加商品圖片，可以在Admin管理後臺上傳圖片
 <img src='/static/githubImages/1.PNG' width='750px'>
 <img src='/static/githubImages/2.PNG' width='750px'>
 
