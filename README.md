@@ -38,7 +38,7 @@
 ## 演示步驟與展示圖片
 
 * 尚未有帳號密碼，所以導至登入頁面
-<img src='/static/githubImages/14.PNG' width='500px'>
+<img src='/static/githubImages/14.PNG' width='750px'>
 
 * 第三方登入(Google、GitHub)
 ![login](/static/githubImages/15.PNG)
