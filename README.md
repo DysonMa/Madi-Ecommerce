@@ -41,38 +41,37 @@
 <img src='/static/githubImages/14.PNG' width='750px'>
 
 * 第三方登入(Google、GitHub)
-![login](/static/githubImages/15.PNG)
-![login](/static/githubImages/16.PNG)
+<img src='/static/githubImages/15.PNG' width='750px'>
 
 * 註冊帳號，成功後會寄發註冊成功的電子郵件
-![register](/static/githubImages/17.PNG)
-![register](/static/githubImages/18.PNG)
+<img src='/static/githubImages/17.PNG' width='750px'>
+<img src='/static/githubImages/18.PNG' width='750px'>
 
 * 登入後，進入首頁
-![home](/static/githubImages/4.PNG)
+<img src='/static/githubImages/4.PNG' width='750px'>
 
 * 使用者個人資料
-![userinfo](/static/githubImages/7.PNG)
+<img src='/static/githubImages/7.PNG' width='750px'>
 
 * 分類檢視
-![category](/static/githubImages/5.PNG)
-![category](/static/githubImages/6.PNG)
+<img src='/static/githubImages/5.PNG' width='750px'>
+<img src='/static/githubImages/6.PNG' width='750px'>
 
 * 選購商品，加入購物車
-![cart](/static/githubImages/8.PNG)
-![cart](/static/githubImages/9.PNG)
-![cart](/static/githubImages/10.PNG)
+<img src='/static/githubImages/8.PNG' width='750px'>
+<img src='/static/githubImages/9.PNG' width='750px'>
+<img src='/static/githubImages/10.PNG' width='750px'>
 
 * 按下"我要訂購"，並輸入訂購資訊
-![order](/static/githubImages/11.PNG)
-![order](/static/githubImages/12.PNG)
+<img src='/static/githubImages/11.PNG' width='750px'>
+<img src='/static/githubImages/12.PNG' width='750px'>
 
 * 發送電子郵件通知訂單給顧客
-![email](/static/githubImages/13.PNG)
+<img src='/static/githubImages/13.PNG' width='750px'>
 
 * 想增加商品圖片，可以在Admin管理後臺上傳圖片
-![upload](/static/githubImages/1.PNG)
-![upload](/static/githubImages/2.PNG)
+<img src='/static/githubImages/1.PNG' width='750px'>
+<img src='/static/githubImages/2.PNG' width='750px'>
 
 ## 如何開始
 ### 安裝
