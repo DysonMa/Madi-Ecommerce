@@ -44,4 +44,4 @@ termcolor==1.1.0
 Unidecode==1.1.2
 urllib3==1.25.11
 wcwidth==0.1.9
-psycopg2==2.6.1
+psycopg2
