@@ -1,14 +1,12 @@
 # Madi-Ecommerce
 
-## 關於
-
 * 這是一個用 Django, Bootstrap, MySQL(或SQLite), Docker 架設並部署在 Heroku 的購物網站。
 
 ![home](/static/githubImages/4.PNG)
 
 ## 功能
 * 響應式(RWD)網站設計
-* 圖片輪播(Carousel)
+* 首頁圖片輪播(Carousel)
 * 使用者驗證(django auth)
 * 第三方登入驗證(Google、GitHub)
 * 將商品加入購物車並提交訂單(session)
@@ -27,10 +25,11 @@
         - form
         - email(SMTP+Gmail)
         - django-allauth(Google、GitHub)  
+        - django-shopping-cart
 * 資料庫:
     - [MySQL](https://www.mysql.com/)
     - [PostgreSQL(Heroku)](https://www.postgresql.org/)
-    - [SQLite(地端測試)](https://www.sqlite.org/index.html)
+    - [SQLite](https://www.sqlite.org/index.html)
 * 部署:
     - [Docker](https://www.docker.com/)
     - [Heroku](https://dashboard.heroku.com/)
@@ -82,14 +81,24 @@ git clone https://github.com/DysonMa/Madi-Ecommerce.git
 ```
 
 ### 編輯config.ini
+
+以下是範本，要依照個人需求修改
+
 ```
 [Django]
 SECRET_KEY = 
+
 [Gmail]
 client_secret = 
+
 [MySQL]
 client_secret = 
 ```
+
+* `[Django] SECRET_KEY`: 可以不用編輯，因為是demo版，所以仍然附在code裡面
+* `[Gmail] client_secret`: 用來核准寄信的密鑰，須至 [Google Gmail API 申請](https://developers.google.com/gmail/api/quickstart/js) 申請，詳細步驟可以參考[這裡](https://www.learncodewithmike.com/2020/04/django-allauth-google.html)
+* `[MySQL] client_secret`: 用來連線MySQL的密碼 
+
 
 ### 手動啟動
 1. 進入資料夾
@@ -134,13 +143,15 @@ docker-compose up
 ```
 3. 到 https://localhost:8000/ 就可以看到網站
 
-### 第三方登入驗證申請步驟
-[Google 第三方驗證](https://www.learncodewithmike.com/2020/)04/django-allauth-google.html
-[Google-API-Dashboard](https://console.cloud.google.com/apis/dashboard)
-[Github 第三方驗證](https://ithelp.ithome.com.tw/articles/10241844)
+## 參考資料
+### [參考資料] 第三方登入驗證申請步驟
+* [Google 第三方驗證](https://www.learncodewithmike.com/2020/04/django-allauth-google.html)
+* [Google Gmail API 申請](https://developers.google.com/gmail/api/quickstart/js)
+* [Google-API-Dashboard](https://console.cloud.google.com/apis/dashboard)
+* [Github 第三方驗證](https://ithelp.ithome.com.tw/articles/10241844)
 
-## Heroku部署步驟
+### [參考資料] Heroku部署步驟
 [Heroku 部署(1)](https://djangogirlstaipei.herokuapp.com/tutorials/deploy-to-heroku/?os=windows)
 [Heroku 部署(2)](https://ithelp.ithome.com.tw/articles/10212659?sc=rss.qu)
 
-## 學習筆記
+

@@ -159,21 +159,28 @@ WSGI_APPLICATION = 'Ecommerce.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+# SQLite
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',  # 改成MySQL
-        # 'ENGINE': 'django.db.backends.mysql',  # 改成MySQL
+        'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
-        # 'NAME': 'md-ecommerce',
-        # 'USER': 'root',
-        # 'PASSWORD': config['MySQL']['client_secret'],
-        # 'HOST': 'localhost',
-        # 'PORT': '',
-        # 'OPTIONS': {
-        #     'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-        # },
     }
 }
+
+# MySQL
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'md-ecommerce',
+#         'USER': 'root',
+#         'PASSWORD': config['MySQL']['client_secret'],
+#         'HOST': 'localhost',
+#         'PORT': '',
+#         'OPTIONS': {
+#             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+#         },
+#     }
+# }
 
 
 # Password validation
