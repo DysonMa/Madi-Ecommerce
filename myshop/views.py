@@ -43,8 +43,11 @@ def index(request, cat_id=0):
         products = paginator.page(1)
     except EmptyPage:
         products = paginator.page(paginator.num_pages)
-
-    cart = Cart(request) # 購物車
+    
+    # 自己計算cart總數量
+    cart = Cart(request)
+    dic = list(cart.session['cart'].values())
+    cnt = sum([each['quantity'] for each in dic]) 
     return render(request, 'index.html', locals())
 
 def login(request):
@@ -122,7 +125,12 @@ def cart(request):
     if request.user.is_authenticated:
         username = request.user.username
     all_categories = models.Category.objects.all()
-    cart = Cart(request) # django的cart套件
+    
+    # 自己計算總額
+    cart = Cart(request)
+    dic = list(cart.session['cart'].values())
+    total_price = sum([each['quantity']*(float(each['price'])) for each in dic])
+
     return render(request, 'cart.html', locals())
 
 # @verified_email_required
@@ -130,20 +138,27 @@ def order(request):
     if request.user.is_authenticated:
         username = request.user.username
     all_categories = models.Category.objects.all()
+    
+    # 自己計算總額
     cart = Cart(request)
+    dic = list(cart.session['cart'].values())
+    total_price = sum([each['quantity']*(float(each['price'])) for each in dic])
+    
     if request.method=='POST':
         user = User.objects.get(username=request.user.username)
         new_order = models.Order(user=user)
         form = forms.OrderForm(request.POST, instance=new_order)
         if form.is_valid():
             order = form.save()  # 把訂單Order儲存在資料庫中並取得實例放在order這個變數中
+            print(request)
             email_messages = '購物內容如下: \n'
-            for item in cart:
+            for prod in cart.session['cart'].values():
                 models.OrderItem.objects.create(order=order,
-                                                product=item.product,
-                                                price=item.product.price,
-                                                quantity=item.quantity)
-                email_messages = f'{email_messages}\n{item.product}, 價格: {round(item.product.price, 0)}, 數量: {item.quantity}個'
+                                                # product=prod['name'],  # Heroku無法修改cart.py的model，所以暫時不join到product
+                                                name=prod['name'],
+                                                price=prod['price'],
+                                                quantity=prod['quantity'])
+                email_messages = f'{email_messages}\n{prod["name"]}, 價格: {float(prod["price"])}, 數量: {prod["quantity"]}個'
             cart.clear()  # 清除購物車內容
 
             # 電子郵件內容樣板

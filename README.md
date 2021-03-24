@@ -2,8 +2,7 @@
 
 ## 關於
 
-* [English README.md(英文 README.md)](https://github.com/DysonMa/Madi-Ecommerce/blob/master/README.md)
-* 這是一個用 Django, Bootstrap, MySQL, Docker 架設並部署在 Heroku 的購物網站。
+* 這是一個用 Django, Bootstrap, MySQL(或SQLite), Docker 架設並部署在 Heroku 的購物網站。
 
 ![home](/static/githubImages/4.PNG)
 
@@ -11,7 +10,7 @@
 * 響應式(RWD)網站設計
 * 圖片輪播(Carousel)
 * 使用者驗證(django auth)
-* 第三方登入(Google、GitHub)
+* 第三方登入驗證(Google、GitHub)
 * 將商品加入購物車並提交訂單(session)
 * 發送訂單確認的電子郵件給顧客(SMTP + Gmail)
 * Admin管理後臺可以上傳產品圖片(django-filer)
@@ -27,12 +26,14 @@
         - session
         - form
         - email(SMTP+Gmail)
-        - django-allauth  
+        - django-allauth(Google、GitHub)  
 * 資料庫:
     - [MySQL](https://www.mysql.com/)
+    - [PostgreSQL(Heroku)](https://www.postgresql.org/)
     - [SQLite(地端測試)](https://www.sqlite.org/index.html)
 * 部署:
     - [Docker](https://www.docker.com/)
+    - [Heroku](https://dashboard.heroku.com/)
 
 ## 演示步驟與展示圖片
 
@@ -73,18 +74,73 @@
 <img src='/static/githubImages/1.PNG' width='750px'>
 <img src='/static/githubImages/2.PNG' width='750px'>
 
-## 如何開始
+## 本地端建立環境
 ### 安裝
 遠端下載repo
 ```
 git clone https://github.com/DysonMa/Madi-Ecommerce.git
 ```
-## 使用
 
+### 編輯config.ini
+```
+[Django]
+SECRET_KEY = 
+[Gmail]
+client_secret = 
+[MySQL]
+client_secret = 
+```
 
-## 憑證
-Distributed under the MIT License.
+### 手動啟動
+1. 進入資料夾
+```
+cd Ecommerce
+```
+2. 創建一個虛擬環境叫做 `myenv`
+```
+python -m venv myvenv
+```
+3. 開啟虛擬環境
+```
+myvenv\Scripts\activate
+```
+4. pip安裝相依的套件
+```
+pip install -r requirements.txt
+```
+5. migrate資料
+```
+python manage.py makemigrations
+python manage.py migrate
+```
+6. 建立superuser
+```
+python manage.py createsuperuser
+```
+7. 在本地端 run server
+```
+python manage.py runserver
+```
+8. 到 https://localhost:8000/ 就可以看到網站
 
-## 聯絡方式
-Dyson Ma - madihsiang@gmail.com
-Project Link: https://github.com/DysonMa/Madi-Ecommerce
+### Docker啟動
+1. 進入資料夾
+```
+cd Ecommerce
+```
+2. 利用 `docker-compose` 啟動環境
+```
+docker-compose up
+```
+3. 到 https://localhost:8000/ 就可以看到網站
+
+### 第三方登入驗證申請步驟
+[Google 第三方驗證](https://www.learncodewithmike.com/2020/)04/django-allauth-google.html
+[Google-API-Dashboard](https://console.cloud.google.com/apis/dashboard)
+[Github 第三方驗證](https://ithelp.ithome.com.tw/articles/10241844)
+
+## Heroku部署步驟
+[Heroku 部署(1)](https://djangogirlstaipei.herokuapp.com/tutorials/deploy-to-heroku/?os=windows)
+[Heroku 部署(2)](https://ithelp.ithome.com.tw/articles/10212659?sc=rss.qu)
+
+## 學習筆記

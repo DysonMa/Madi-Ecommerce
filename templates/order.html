@@ -16,7 +16,7 @@
         <div class="col-sm-12">
             <div class="panel panel-info">
                 <div>
-                    {% for item in cart %}
+                    {% for prod in request.session.cart.values %}
                     {% if forloop.first %}
                     <table class='table' style='background-color: whitesmoke;'>
                         <thead class='thead-dark'>
@@ -31,16 +31,16 @@
                     {% endif %}
                     <tbody>
                         <tr>
-                            <td style='text-align: center;'>{{item.product.name}}</td>
-                            <td style='text-align: center;'>{{item.product.price|floatformat}}</td>
-                            <td style='text-align: center;'>{{item.quantity}}</td>
-                            <td style='text-align: center;'>{{item.total_price|floatformat}}</td>
+                            <td style='text-align: center;'>{{prod.name}}</td>
+                            <td style='text-align: center;'>{{prod.price|floatformat}}</td>
+                            <td style='text-align: center;'>{{prod.quantity}}</td>
+                            <td style='text-align: center;'>{% widthratio prod.price 1 prod.quantity %}</td>
                         </tr>
                     </tbody>
                     {% if forloop.last %}
                     </table>
                     <div style='padding:12px 12px 12px 0;'>
-                        <h3 style='font-weight: bold;'>總計: {{cart.summary|floatformat}} 元</h3>
+                        <h3 style='font-weight: bold;'>總計: {{total_price|floatformat}} 元</h3>
                     </div>
                     {% endif %}
                     {% empty %}

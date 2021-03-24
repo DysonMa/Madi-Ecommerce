@@ -26,7 +26,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config['Django']['SECRET_KEY']
+SECRET_KEY = ino3at+43@*rp%u@v*#-m_0&n#xqi-6@=ea_6-7l=-5$#x+tg4
+# SECRET_KEY = config['Django']['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -58,6 +59,9 @@ INSTALLED_APPS = [
     'mptt',
     'cart',
 ]
+
+# django-shopping-cart
+CART_SESSION_ID = 'cart'
 
 SITE_ID = 1
 LOGIN_REDIRECT_URL = '/'
@@ -143,6 +147,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'cart.context_processor.cart_total_amount',  # django-shopping-cart
             ],
         },
     },
@@ -156,16 +161,17 @@ WSGI_APPLICATION = 'Ecommerce.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',  # 改成MySQL
-        # 'NAME': BASE_DIR / 'db.sqlite3',
-        'NAME': 'md-ecommerce',
-        'USER': 'root',
-        'PASSWORD': config['MySQL']['client_secret'],
-        'HOST': 'localhost',
-        'PORT': '',
-        'OPTIONS': {
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-        },
+        'ENGINE': 'django.db.backends.sqlite3',  # 改成MySQL
+        # 'ENGINE': 'django.db.backends.mysql',  # 改成MySQL
+        'NAME': BASE_DIR / 'db.sqlite3',
+        # 'NAME': 'md-ecommerce',
+        # 'USER': 'root',
+        # 'PASSWORD': config['MySQL']['client_secret'],
+        # 'HOST': 'localhost',
+        # 'PORT': '',
+        # 'OPTIONS': {
+        #     'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        # },
     }
 }
 

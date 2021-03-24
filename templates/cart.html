@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
+{% load cart_tag %}
 {% block title %}檢視購物車{% endblock %}
 {% block content %}
 <div class="container" style='padding-top:5em'>
     {% for message in messages %}
         <div class='alert alert-{{message.tags}}'>{{message}}</div>
     {% endfor %}
-    
     <div class="row">
         <div class="col-sm-12">
             <div>
@@ -13,7 +13,7 @@
                     <h2 style='font-weight: bold;'>我的購物車</h2>
                 </div>
                 <div>
-                    {% for item in cart %}
+                    {% for prod in request.session.cart.values %}
                     {% if forloop.first %}
                     <table class='table' style='background-color: whitesmoke;'>
                         <thead class='thead-dark'>
@@ -29,12 +29,12 @@
                     {% endif %}
                     <tbody>
                         <tr>
-                            <td style='text-align: center;'>{{item.product.name}}</td>
-                            <td style='text-align: center;'>{{item.product.price|floatformat}}</td>
-                            <td style='text-align: center;'>{{item.quantity}}</td>
-                            <td style='text-align: center;'>{{item.total_price|floatformat}}</td>
+                            <td style='text-align: center;'>{{prod.name}}</td>
+                            <td style='text-align: center;'>{{prod.price|floatformat}}</td>
+                            <td style='text-align: center;'>{{prod.quantity}}</td>
+                            <td style='text-align: center;'>{% widthratio prod.price 1 prod.quantity %}</td>
                             <td style='text-align: center;'>
-                                <a href="{% url 'removeitem-url' item.product.id %}">
+                                <a href="{% url 'removeitem-url' prod.product_id %}">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                                         <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
                                         <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
@@ -46,7 +46,7 @@
                     {% if forloop.last %}
                     </table>
                     <div style='padding:12px 12px 12px 0;'>
-                        <h3 style='font-weight: bold;'>總計: {{cart.summary|floatformat}} 元</h3>
+                        <h3 style='font-weight: bold;'>總計: {{total_price|floatformat}} 元</h3>
                     </div>
                     <div style='padding:12px 12px 12px 0'>
                         <button class='btn btn-info'><a href="/order" style="color:whitesmoke">我要訂購</a></button>
