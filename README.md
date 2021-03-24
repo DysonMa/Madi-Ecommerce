@@ -87,6 +87,7 @@ git clone https://github.com/DysonMa/Madi-Ecommerce.git
 SECRET_KEY = 
 
 [Gmail]
+email = 
 client_secret = 
 
 [MySQL]
@@ -94,6 +95,7 @@ client_secret =
 ```
 
 * `[Django] SECRET_KEY`: 可以不用編輯，因為是demo版，所以仍然附在code裡面
+* `[Gmail] email`: 輸入寄件者的信箱
 * `[Gmail] client_secret`: 用來核准寄信的密鑰，須至 [Google Gmail API 申請](https://developers.google.com/gmail/api/quickstart/js) 申請，詳細步驟可以參考[這裡](https://www.learncodewithmike.com/2020/04/django-allauth-google.html)
 * `[MySQL] client_secret`: 用來連線MySQL的密碼 
 

@@ -170,7 +170,7 @@ def order(request):
                 '訂購產品通知',  # 電子郵件標題
                 email_template,  # 電子郵件內容
                 settings.EMAIL_HOST_USER,  # 寄件者
-                ['madihsiang@gmail.com']  # 收件者
+                []  # 收件者
             )
             email_customer = EmailMessage(
                 '感謝您的訂購',  # 電子郵件標題
@@ -214,7 +214,7 @@ def sign_up(request):
                 'Madi-Ecommerce註冊成功通知信',  # 電子郵件標題
                 email_template,  # 電子郵件內容
                 settings.EMAIL_HOST_USER,  # 寄件者
-                ['madihsiang@gmail.com']  # 收件者
+                []  # 收件者
             )
             email.fail_silently = False
             email.send()
