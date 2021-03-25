@@ -63,8 +63,8 @@ class Order(models.Model):
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='items')
     # Heroku無法修改cart.py的model，所以暫時不join到product
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    name = models.CharField(max_length=20, default=None)
+    # product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    name = models.CharField(max_length=20, null=True)
     
     price = models.DecimalField(max_digits=8, decimal_places=2)
     quantity = models.PositiveIntegerField(default=1)

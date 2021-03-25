@@ -150,11 +150,11 @@ def order(request):
         form = forms.OrderForm(request.POST, instance=new_order)
         if form.is_valid():
             order = form.save()  # 把訂單Order儲存在資料庫中並取得實例放在order這個變數中
-            print(request)
+            print(cart.session['cart'].values())
             email_messages = '購物內容如下: \n'
             for prod in cart.session['cart'].values():
                 models.OrderItem.objects.create(order=order,
-                                                # product=prod['name'],  # Heroku無法修改cart.py的model，所以暫時不join到product
+                                                # product=prod['product'],  # Heroku無法修改cart.py的model，所以暫時不join到product
                                                 name=prod['name'],
                                                 price=prod['price'],
                                                 quantity=prod['quantity'])
